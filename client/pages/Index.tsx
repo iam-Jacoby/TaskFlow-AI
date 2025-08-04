@@ -308,9 +308,13 @@ export default function Index() {
                       </div>
                     </div>
                     
-                    <Button variant="ghost" size="sm">
-                      <MoreHorizontal className="w-4 h-4" />
-                    </Button>
+                    <TaskActionsDropdown
+                      taskId={task.id}
+                      onDelete={handleDeleteTask}
+                      onDuplicate={handleDuplicateTask}
+                      onSetPriority={handleSetPriority}
+                      onArchive={handleArchiveTask}
+                    />
                   </div>
                 );
               })}
