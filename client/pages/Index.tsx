@@ -100,6 +100,10 @@ export default function Index() {
     }));
   };
 
+  const handleTaskCreate = (newTask: Task) => {
+    setTasks([newTask, ...tasks]);
+  };
+
   const completedTasks = tasks.filter(task => task.status === 'completed').length;
   const totalTasks = tasks.length;
   const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
