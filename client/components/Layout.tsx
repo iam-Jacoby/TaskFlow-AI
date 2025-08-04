@@ -108,7 +108,7 @@ export function Layout({ children }: LayoutProps) {
       {/* Main Content */}
       <div className="lg:ml-64">
         {/* Top Bar */}
-        <header className="h-16 bg-background border-b border-border flex items-center justify-between px-6">
+        <header className="sticky top-0 z-40 h-16 bg-background border-b border-border flex items-center justify-between px-6">
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
