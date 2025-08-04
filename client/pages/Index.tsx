@@ -117,10 +117,15 @@ export default function Index() {
             <h1 className="text-3xl font-bold text-foreground">Welcome back! 👋</h1>
             <p className="text-muted-foreground mt-1">Here's what's happening with your tasks today.</p>
           </div>
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground sm:w-auto w-full">
-            <Plus className="w-4 h-4 mr-2" />
-            Create Task
-          </Button>
+          <TaskCreationModal
+            onTaskCreate={handleTaskCreate}
+            trigger={
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground sm:w-auto w-full">
+                <Plus className="w-4 h-4 mr-2" />
+                Create Task
+              </Button>
+            }
+          />
         </div>
 
         {/* Stats Cards */}
