@@ -140,12 +140,13 @@ export function TaskCreationModal({ trigger, onTaskCreate }: TaskCreationModalPr
                   {dueDate ? format(dueDate, 'PPP') : 'Pick a date'}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
+              <PopoverContent className="w-auto p-0" align="start" sideOffset={4}>
                 <Calendar
                   mode="single"
                   selected={dueDate}
                   onSelect={setDueDate}
                   initialFocus
+                  disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
                 />
               </PopoverContent>
             </Popover>
