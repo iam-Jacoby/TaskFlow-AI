@@ -105,6 +105,34 @@ export default function Index() {
     setTasks([newTask, ...tasks]);
   };
 
+  const handleDeleteTask = (taskId: string) => {
+    setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
+  const handleDuplicateTask = (taskId: string) => {
+    const taskToDuplicate = tasks.find(task => task.id === taskId);
+    if (taskToDuplicate) {
+      const duplicatedTask = {
+        ...taskToDuplicate,
+        id: Date.now().toString(),
+        title: `${taskToDuplicate.title} (Copy)`,
+        status: 'todo' as const
+      };
+      setTasks([duplicatedTask, ...tasks]);
+    }
+  };
+
+  const handleSetPriority = (taskId: string, priority: 'low' | 'medium' | 'high') => {
+    setTasks(tasks.map(task =>
+      task.id === taskId ? { ...task, priority } : task
+    ));
+  };
+
+  const handleArchiveTask = (taskId: string) => {
+    // For now, just remove from the list. In a real app, you'd move to an archived state
+    setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
   const completedTasks = tasks.filter(task => task.status === 'completed').length;
   const totalTasks = tasks.length;
   const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
