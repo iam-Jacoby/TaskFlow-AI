@@ -140,7 +140,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="p-6 pt-4">
+        <main className="p-6 pt-6 lg:pt-6">
           {children}
         </main>
       </div>
