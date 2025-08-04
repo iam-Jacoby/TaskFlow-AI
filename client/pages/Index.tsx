@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';
 import { TaskCreationModal } from '../components/TaskCreationModal';
+import { TaskActionsDropdown } from '../components/TaskActionsDropdown';
 import {
   Plus,
   MoreHorizontal,
