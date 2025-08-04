@@ -1,16 +1,14 @@
 import { ReactNode, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  CheckSquare, 
-  Calendar, 
-  BarChart3, 
-  Users, 
-  Settings, 
+import {
+  LayoutDashboard,
+  CheckSquare,
+  Calendar,
+  BarChart3,
+  Users,
+  Settings,
   Plus,
   Search,
-  Bell,
-  User,
   Menu,
   X,
   Moon,
@@ -18,6 +16,9 @@ import {
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { TaskCreationModal } from './TaskCreationModal';
+import { NotificationsPanel } from './NotificationsPanel';
+import { UserProfileDropdown } from './UserProfileDropdown';
 
 interface LayoutProps {
   children: ReactNode;
