@@ -1,11 +1,299 @@
-import { Placeholder } from './Placeholder';
+import { useState } from 'react';
+import { Layout } from '../components/Layout';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Input } from '../components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+import { TaskCreationModal } from '../components/TaskCreationModal';
+import { TaskActionsDropdown } from '../components/TaskActionsDropdown';
+import { 
+  Plus,
+  Search,
+  Filter,
+  Calendar,
+  User,
+  Clock,
+  CheckCircle2,
+  Circle,
+  ArrowUpDown
+} from 'lucide-react';
+
+interface Task {
+  id: string;
+  title: string;
+  description?: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'todo' | 'in-progress' | 'completed';
+  category: string;
+  tags: string[];
+  dueDate?: string;
+  assignee?: string;
+}
+
+const mockTasks: Task[] = [
+  {
+    id: '1',
+    title: 'Design user authentication flow',
+    description: 'Create wireframes and prototypes for the login and signup process',
+    priority: 'high',
+    status: 'in-progress',
+    category: 'Design',
+    tags: ['UI/UX', 'Auth'],
+    dueDate: '2024-01-15',
+    assignee: 'Sarah Chen'
+  },
+  {
+    id: '2',
+    title: 'Implement task drag and drop',
+    description: 'Add drag and drop functionality for task reordering',
+    priority: 'medium',
+    status: 'todo',
+    category: 'Development',
+    tags: ['Frontend', 'React'],
+    dueDate: '2024-01-18'
+  },
+  {
+    id: '3',
+    title: 'Set up CI/CD pipeline',
+    priority: 'high',
+    status: 'completed',
+    category: 'DevOps',
+    tags: ['CI/CD', 'Automation'],
+    dueDate: '2024-01-10'
+  },
+  {
+    id: '4',
+    title: 'Write API documentation',
+    priority: 'low',
+    status: 'todo',
+    category: 'Documentation',
+    tags: ['API', 'Docs'],
+    dueDate: '2024-01-20'
+  },
+  {
+    id: '5',
+    title: 'Optimize database queries',
+    description: 'Improve performance of user data retrieval',
+    priority: 'medium',
+    status: 'in-progress',
+    category: 'Backend',
+    tags: ['Database', 'Performance'],
+    dueDate: '2024-01-16'
+  }
+];
+
+const priorityColors = {
+  low: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+  medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+  high: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+};
+
+const statusIcons = {
+  todo: Circle,
+  'in-progress': Clock,
+  completed: CheckCircle2
+};
 
 export default function Tasks() {
+  const [tasks, setTasks] = useState<Task[]>(mockTasks);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [priorityFilter, setPriorityFilter] = useState<string>('all');
+
+  const filteredTasks = tasks.filter(task => {
+    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         task.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         task.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesStatus = statusFilter === 'all' || task.status === statusFilter;
+    const matchesPriority = priorityFilter === 'all' || task.priority === priorityFilter;
+    
+    return matchesSearch && matchesStatus && matchesPriority;
+  });
+
+  const toggleTaskStatus = (taskId: string) => {
+    setTasks(tasks.map(task => {
+      if (task.id === taskId) {
+        const statusOrder = ['todo', 'in-progress', 'completed'] as const;
+        const currentIndex = statusOrder.indexOf(task.status);
+        const nextIndex = (currentIndex + 1) % statusOrder.length;
+        return { ...task, status: statusOrder[nextIndex] };
+      }
+      return task;
+    }));
+  };
+
+  const handleTaskCreate = (newTask: Task) => {
+    setTasks([newTask, ...tasks]);
+  };
+
+  const handleDeleteTask = (taskId: string) => {
+    setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
+  const handleDuplicateTask = (taskId: string) => {
+    const taskToDuplicate = tasks.find(task => task.id === taskId);
+    if (taskToDuplicate) {
+      const duplicatedTask = {
+        ...taskToDuplicate,
+        id: Date.now().toString(),
+        title: `${taskToDuplicate.title} (Copy)`,
+        status: 'todo' as const
+      };
+      setTasks([duplicatedTask, ...tasks]);
+    }
+  };
+
+  const handleSetPriority = (taskId: string, priority: 'low' | 'medium' | 'high') => {
+    setTasks(tasks.map(task => 
+      task.id === taskId ? { ...task, priority } : task
+    ));
+  };
+
+  const handleArchiveTask = (taskId: string) => {
+    setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
   return (
-    <Placeholder
-      title="Task Management"
-      description="Advanced task management with drag & drop, filters, and AI-powered organization."
-      feature="task management"
-    />
+    <Layout>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Tasks</h1>
+            <p className="text-muted-foreground mt-1">Manage and organize all your tasks in one place.</p>
+          </div>
+          <TaskCreationModal 
+            onTaskCreate={handleTaskCreate}
+            trigger={
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground sm:w-auto w-full">
+                <Plus className="w-4 h-4 mr-2" />
+                Create Task
+              </Button>
+            }
+          />
+        </div>
+
+        {/* Filters */}
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <Input
+                  placeholder="Search tasks..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-full sm:w-48">
+                  <SelectValue placeholder="Filter by status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Status</SelectItem>
+                  <SelectItem value="todo">To Do</SelectItem>
+                  <SelectItem value="in-progress">In Progress</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                <SelectTrigger className="w-full sm:w-48">
+                  <SelectValue placeholder="Filter by priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Priority</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Task List */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Task List ({filteredTasks.length})</CardTitle>
+            <CardDescription>
+              {filteredTasks.length === 0 ? 'No tasks match your current filters.' : 'Click on task status to update, or use the menu for more actions.'}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {filteredTasks.map((task) => {
+                const StatusIcon = statusIcons[task.status];
+                
+                return (
+                  <div key={task.id} className="flex items-center space-x-4 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0"
+                      onClick={() => toggleTaskStatus(task.id)}
+                    >
+                      <StatusIcon className={`w-4 h-4 ${
+                        task.status === 'completed' ? 'text-green-600' : 
+                        task.status === 'in-progress' ? 'text-blue-600' : 
+                        'text-muted-foreground'
+                      }`} />
+                    </Button>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className={`font-medium ${task.status === 'completed' ? 'line-through text-muted-foreground' : ''}`}>
+                          {task.title}
+                        </h3>
+                        <Badge variant="outline" className={priorityColors[task.priority]}>
+                          {task.priority}
+                        </Badge>
+                        <Badge variant="secondary">
+                          {task.category}
+                        </Badge>
+                      </div>
+                      {task.description && (
+                        <p className="text-sm text-muted-foreground mb-2">{task.description}</p>
+                      )}
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        {task.dueDate && (
+                          <span className="flex items-center">
+                            <Calendar className="w-3 h-3 mr-1" />
+                            {task.dueDate}
+                          </span>
+                        )}
+                        {task.assignee && (
+                          <span className="flex items-center">
+                            <User className="w-3 h-3 mr-1" />
+                            {task.assignee}
+                          </span>
+                        )}
+                        <div className="flex gap-1">
+                          {task.tags.map((tag) => (
+                            <Badge key={tag} variant="outline" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <TaskActionsDropdown
+                      taskId={task.id}
+                      onDelete={handleDeleteTask}
+                      onDuplicate={handleDuplicateTask}
+                      onSetPriority={handleSetPriority}
+                      onArchive={handleArchiveTask}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </Layout>
   );
 }
