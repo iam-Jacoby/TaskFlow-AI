@@ -94,10 +94,14 @@ export function Layout({ children }: LayoutProps) {
         </nav>
         
         <div className="absolute bottom-6 left-3 right-3">
-          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-            <Plus className="w-4 h-4 mr-2" />
-            New Task
-          </Button>
+          <TaskCreationModal
+            trigger={
+              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Plus className="w-4 h-4 mr-2" />
+                New Task
+              </Button>
+            }
+          />
         </div>
       </aside>
 
