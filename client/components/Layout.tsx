@@ -68,19 +68,19 @@ export function Layout({ children }: LayoutProps) {
           </Button>
         </div>
         
-        <nav className="mt-6 px-3">
+        <nav className="mt-6 px-3 pb-20">
           {sidebarItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
-            
+
             return (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`
                   flex items-center space-x-3 px-3 py-2.5 rounded-lg mb-1 transition-colors
-                  ${isActive 
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                  ${isActive
+                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
                     : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
                   }
                 `}
@@ -92,8 +92,8 @@ export function Layout({ children }: LayoutProps) {
             );
           })}
         </nav>
-        
-        <div className="absolute bottom-6 left-3 right-3">
+
+        <div className="absolute bottom-4 left-3 right-3">
           <TaskCreationModal
             trigger={
               <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
