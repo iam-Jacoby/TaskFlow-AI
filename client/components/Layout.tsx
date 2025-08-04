@@ -132,14 +132,10 @@ export function Layout({ children }: LayoutProps) {
             <Button variant="ghost" size="sm" onClick={toggleDarkMode}>
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
-            
-            <Button variant="ghost" size="sm">
-              <Bell className="w-5 h-5" />
-            </Button>
-            
-            <Button variant="ghost" size="sm">
-              <User className="w-5 h-5" />
-            </Button>
+
+            <NotificationsPanel />
+
+            <UserProfileDropdown />
           </div>
         </header>
 
