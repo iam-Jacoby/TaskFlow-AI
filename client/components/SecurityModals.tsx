@@ -336,18 +336,19 @@ export function DataDownloadModal({ children }: { children: React.ReactNode }) {
         <DialogHeader>
           <DialogTitle>Download Your Data</DialogTitle>
           <DialogDescription>
-            Export all your TaskFlow AI data in JSON format.
+            Export all your TaskFlow AI data as a well-organized, printable document.
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           <div className="bg-muted p-4 rounded-lg">
             <h4 className="font-medium mb-2">What's included:</h4>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• Profile information</li>
-              <li>• All tasks and projects</li>
-              <li>• Settings and preferences</li>
-              <li>• Account metadata</li>
+              <li>• Profile information & account details</li>
+              <li>• Complete task list with status & priorities</li>
+              <li>• Settings and preferences summary</li>
+              <li>• Task analytics and statistics</li>
+              <li>• Professionally formatted for printing</li>
             </ul>
           </div>
           
