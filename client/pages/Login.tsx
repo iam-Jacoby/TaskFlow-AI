@@ -167,16 +167,18 @@ export default function Login() {
             </Button>
           </div>
 
-          <div className="mt-6 pt-6 border-t">
-            <div className="text-sm text-muted-foreground">
-              <p className="font-medium mb-2">Demo Credentials:</p>
-              <div className="space-y-1 text-xs">
-                <p>• jacob@taskflow.ai / password123</p>
-                <p>• admin@taskflow.ai / admin123</p>
-                <p>• demo@taskflow.ai / demo123</p>
+          {!isSignUp && (
+            <div className="mt-6 pt-6 border-t">
+              <div className="text-sm text-muted-foreground">
+                <p className="font-medium mb-2">Demo Credentials:</p>
+                <div className="space-y-1 text-xs">
+                  <p>• jacob@taskflow.ai / password123</p>
+                  <p>• admin@taskflow.ai / admin123</p>
+                  <p>• demo@taskflow.ai / demo123</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </CardContent>
       </Card>
     </div>
