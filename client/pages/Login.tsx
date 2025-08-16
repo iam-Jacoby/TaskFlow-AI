@@ -135,21 +135,37 @@ export default function Login() {
               </div>
             )}
 
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={isLoading || !email || !password}
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading || !email || !password || (isSignUp && !confirmPassword)}
             >
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing in...
+                  {isSignUp ? 'Creating Account...' : 'Signing in...'}
                 </>
               ) : (
-                'Sign In'
+                isSignUp ? 'Create Account' : 'Sign In'
               )}
             </Button>
           </form>
+
+          <div className="mt-4 text-center">
+            <Button
+              variant="link"
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setError('');
+                setSuccess('');
+                setPassword('');
+                setConfirmPassword('');
+              }}
+              disabled={isLoading}
+            >
+              {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+            </Button>
+          </div>
 
           <div className="mt-6 pt-6 border-t">
             <div className="text-sm text-muted-foreground">
