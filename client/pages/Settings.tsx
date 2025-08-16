@@ -8,7 +8,9 @@ import { Switch } from '../components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Separator } from '../components/ui/separator';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { 
+import { Alert, AlertDescription } from '../components/ui/alert';
+import { useSettings } from '../hooks/useSettings';
+import {
   User,
   Bell,
   Shield,
@@ -20,46 +22,76 @@ import {
   CreditCard,
   Download,
   Trash2,
-  Save
+  Save,
+  CheckCircle2
 } from 'lucide-react';
 
 export default function Settings() {
-  const [profile, setProfile] = useState({
-    name: 'Jacob Abraham',
-    email: 'jacob@taskflow.ai',
-    timezone: 'America/New_York',
-    language: 'en'
-  });
+  const {
+    settings,
+    isLoading,
+    updateProfile,
+    updateNotifications,
+    updatePreferences,
+    resetSettings
+  } = useSettings();
 
-  const [notifications, setNotifications] = useState({
-    email: true,
-    push: true,
-    taskReminders: true,
-    teamUpdates: true,
-    weeklyReports: false
-  });
+  const [saveMessage, setSaveMessage] = useState('');
+  const [localProfile, setLocalProfile] = useState(settings.profile);
+  const [localNotifications, setLocalNotifications] = useState(settings.notifications);
+  const [localPreferences, setLocalPreferences] = useState(settings.preferences);
 
-  const [preferences, setPreferences] = useState({
-    theme: 'system',
-    dateFormat: 'MM/dd/yyyy',
-    timeFormat: '12h',
-    startOfWeek: 'monday'
-  });
+  // Update local state when settings change
+  React.useEffect(() => {
+    setLocalProfile(settings.profile);
+    setLocalNotifications(settings.notifications);
+    setLocalPreferences(settings.preferences);
+  }, [settings]);
 
   const handleSaveProfile = () => {
-    // Save profile logic here
-    console.log('Profile saved:', profile);
+    const result = updateProfile(localProfile);
+    if (result.success) {
+      setSaveMessage('Profile saved successfully!');
+      setTimeout(() => setSaveMessage(''), 3000);
+    }
   };
 
   const handleSaveNotifications = () => {
-    // Save notifications logic here
-    console.log('Notifications saved:', notifications);
+    const result = updateNotifications(localNotifications);
+    if (result.success) {
+      setSaveMessage('Notification settings saved successfully!');
+      setTimeout(() => setSaveMessage(''), 3000);
+    }
   };
 
   const handleSavePreferences = () => {
-    // Save preferences logic here
-    console.log('Preferences saved:', preferences);
+    const result = updatePreferences(localPreferences);
+    if (result.success) {
+      setSaveMessage('Preferences saved successfully!');
+      setTimeout(() => setSaveMessage(''), 3000);
+    }
   };
+
+  const handleResetSettings = () => {
+    if (confirm('Are you sure you want to reset all settings to default? This cannot be undone.')) {
+      resetSettings();
+      setSaveMessage('Settings reset to default successfully!');
+      setTimeout(() => setSaveMessage(''), 3000);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading settings...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
