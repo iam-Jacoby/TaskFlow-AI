@@ -231,7 +231,7 @@ export default function Settings() {
                 </div>
                 <Switch
                   checked={localNotifications.push}
-                  onCheckedChange={(checked) => setNotifications({ ...notifications, push: checked })}
+                  onCheckedChange={(checked) => setLocalNotifications({ ...localNotifications, push: checked })}
                 />
               </div>
 
@@ -242,7 +242,7 @@ export default function Settings() {
                 </div>
                 <Switch
                   checked={localNotifications.taskReminders}
-                  onCheckedChange={(checked) => setNotifications({ ...notifications, taskReminders: checked })}
+                  onCheckedChange={(checked) => setLocalNotifications({ ...localNotifications, taskReminders: checked })}
                 />
               </div>
 
@@ -253,7 +253,7 @@ export default function Settings() {
                 </div>
                 <Switch
                   checked={localNotifications.teamUpdates}
-                  onCheckedChange={(checked) => setNotifications({ ...notifications, teamUpdates: checked })}
+                  onCheckedChange={(checked) => setLocalNotifications({ ...localNotifications, teamUpdates: checked })}
                 />
               </div>
 
@@ -264,7 +264,7 @@ export default function Settings() {
                 </div>
                 <Switch
                   checked={localNotifications.weeklyReports}
-                  onCheckedChange={(checked) => setNotifications({ ...notifications, weeklyReports: checked })}
+                  onCheckedChange={(checked) => setLocalNotifications({ ...localNotifications, weeklyReports: checked })}
                 />
               </div>
             </div>
