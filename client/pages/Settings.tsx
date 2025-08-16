@@ -332,7 +332,7 @@ export default function Settings() {
 
               <div className="space-y-2">
                 <Label htmlFor="startOfWeek">Start of Week</Label>
-                <Select value={localPreferences.startOfWeek} onValueChange={(value) => setPreferences({ ...preferences, startOfWeek: value })}>
+                <Select value={localPreferences.startOfWeek} onValueChange={(value) => setLocalPreferences({ ...localPreferences, startOfWeek: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
