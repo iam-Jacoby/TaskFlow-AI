@@ -123,9 +123,9 @@ export default function Settings() {
           <CardContent className="space-y-6">
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
-                <AvatarImage src="" alt={profile.name} />
+                <AvatarImage src="" alt={localProfile.name} />
                 <AvatarFallback className="bg-primary text-primary-foreground text-lg">
-                  {profile.name.split(' ').map(n => n[0]).join('')}
+                  {localProfile.name.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
               </Avatar>
               <div>
@@ -143,8 +143,8 @@ export default function Settings() {
                 <Label htmlFor="name">Full Name</Label>
                 <Input
                   id="name"
-                  value={profile.name}
-                  onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                  value={localProfile.name}
+                  onChange={(e) => setLocalProfile({ ...localProfile, name: e.target.value })}
                 />
               </div>
               
