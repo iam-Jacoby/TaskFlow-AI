@@ -230,7 +230,7 @@ export default function Settings() {
                   <p className="text-sm text-muted-foreground">Receive push notifications in browser</p>
                 </div>
                 <Switch
-                  checked={notifications.push}
+                  checked={localNotifications.push}
                   onCheckedChange={(checked) => setNotifications({ ...notifications, push: checked })}
                 />
               </div>
@@ -241,7 +241,7 @@ export default function Settings() {
                   <p className="text-sm text-muted-foreground">Get reminders for upcoming deadlines</p>
                 </div>
                 <Switch
-                  checked={notifications.taskReminders}
+                  checked={localNotifications.taskReminders}
                   onCheckedChange={(checked) => setNotifications({ ...notifications, taskReminders: checked })}
                 />
               </div>
@@ -252,7 +252,7 @@ export default function Settings() {
                   <p className="text-sm text-muted-foreground">Notifications about team activity</p>
                 </div>
                 <Switch
-                  checked={notifications.teamUpdates}
+                  checked={localNotifications.teamUpdates}
                   onCheckedChange={(checked) => setNotifications({ ...notifications, teamUpdates: checked })}
                 />
               </div>
@@ -263,7 +263,7 @@ export default function Settings() {
                   <p className="text-sm text-muted-foreground">Weekly productivity summaries</p>
                 </div>
                 <Switch
-                  checked={notifications.weeklyReports}
+                  checked={localNotifications.weeklyReports}
                   onCheckedChange={(checked) => setNotifications({ ...notifications, weeklyReports: checked })}
                 />
               </div>
