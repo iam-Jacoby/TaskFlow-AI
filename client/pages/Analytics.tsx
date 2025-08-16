@@ -34,12 +34,56 @@ const categoryData = [
 ];
 
 export default function Analytics() {
-  const totalTasks = productivityData.reduce((sum, day) => sum + day.total, 0);
-  const completedTasks = productivityData.reduce((sum, day) => sum + day.completed, 0);
-  const completionRate = Math.round((completedTasks / totalTasks) * 100);
+  const { tasks } = useTaskStore();
 
-  const avgTasksPerDay = Math.round(totalTasks / 7);
-  const avgCompletedPerDay = Math.round(completedTasks / 7);
+  const analytics = useMemo(() => {
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter(task => task.status === 'completed').length;
+    const inProgressTasks = tasks.filter(task => task.status === 'in-progress').length;
+    const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    // Calculate category breakdown
+    const categoryBreakdown = tasks.reduce((acc, task) => {
+      if (!acc[task.category]) {
+        acc[task.category] = { total: 0, completed: 0 };
+      }
+      acc[task.category].total++;
+      if (task.status === 'completed') {
+        acc[task.category].completed++;
+      }
+      return acc;
+    }, {} as Record<string, { total: number; completed: number }>);
+
+    const categoryData = Object.entries(categoryBreakdown).map(([category, data]) => ({
+      category,
+      tasks: data.total,
+      completed: data.completed,
+      color: getCategoryColor(category)
+    }));
+
+    return {
+      totalTasks,
+      completedTasks,
+      inProgressTasks,
+      completionRate,
+      categoryData,
+      avgTasksPerDay: Math.round(totalTasks / 7),
+      avgCompletedPerDay: Math.round(completedTasks / 7)
+    };
+  }, [tasks]);
+
+  function getCategoryColor(category: string) {
+    const colors = {
+      'Development': 'bg-blue-500',
+      'Design': 'bg-purple-500',
+      'Marketing': 'bg-green-500',
+      'Testing': 'bg-yellow-500',
+      'Documentation': 'bg-red-500',
+      'DevOps': 'bg-orange-500',
+      'Backend': 'bg-indigo-500'
+    };
+    return colors[category as keyof typeof colors] || 'bg-gray-500';
+  }
 
   return (
     <Layout>
