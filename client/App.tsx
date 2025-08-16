@@ -22,21 +22,25 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <TooltipProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Toaster />
-          <Sonner />
-        </TooltipProvider>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <TooltipProvider>
+            <ProtectedRoute>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/tasks" element={<Tasks />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/analytics" element={<Analytics />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </ProtectedRoute>
+            <Toaster />
+            <Sonner />
+          </TooltipProvider>
+        </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
