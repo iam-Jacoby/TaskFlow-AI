@@ -20,10 +20,31 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
-    const result = await login(email, password);
-    if (!result.success && result.error) {
-      setError(result.error);
+    setSuccess('');
+
+    if (isSignUp) {
+      // Handle sign up
+      if (password !== confirmPassword) {
+        setError('Passwords do not match');
+        return;
+      }
+
+      if (password.length < 8) {
+        setError('Password must be at least 8 characters long');
+        return;
+      }
+
+      // Simulate account creation
+      setSuccess('Account created successfully! You can now sign in.');
+      setIsSignUp(false);
+      setPassword('');
+      setConfirmPassword('');
+    } else {
+      // Handle sign in
+      const result = await login(email, password);
+      if (!result.success && result.error) {
+        setError(result.error);
+      }
     }
   };
 
