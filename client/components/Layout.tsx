@@ -82,7 +82,7 @@ export function Layout({ children }: LayoutProps) {
   const isDark = document.documentElement.classList.contains('dark');
 
   return (
-    <div className={`min-h-screen bg-background ${darkMode ? 'dark' : ''}`}>
+    <div className="min-h-screen bg-background">
       {/* Sidebar */}
       <aside className={`
         fixed inset-y-0 left-0 z-50 w-64 bg-sidebar transform transition-transform duration-300 ease-in-out
