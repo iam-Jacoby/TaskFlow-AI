@@ -19,7 +19,7 @@ export function TaskCreationModal({ trigger, onTaskCreate }: TaskCreationModalPr
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [category, setCategory] = useState('');
-  const [dueDate, setDueDate] = useState<Date>();
+  const [dueDate, setDueDate] = useState<string>('');
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
 
