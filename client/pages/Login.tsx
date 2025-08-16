@@ -71,6 +71,12 @@ export default function Login() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
+
+            {success && (
+              <Alert>
+                <AlertDescription>{success}</AlertDescription>
+              </Alert>
+            )}
             
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
