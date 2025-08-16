@@ -99,7 +99,7 @@ export default function Login() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder={isSignUp ? "Create a password (min 8 characters)" : "Enter your password"}
                   required
                   disabled={isLoading}
                 />
@@ -119,6 +119,21 @@ export default function Login() {
                 </Button>
               </div>
             </div>
+
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input
+                  id="confirmPassword"
+                  type={showPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm your password"
+                  required
+                  disabled={isLoading}
+                />
+              </div>
+            )}
 
             <Button 
               type="submit" 
