@@ -93,7 +93,10 @@ export function UserProfileDropdown() {
         
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem className="text-red-600 focus:text-red-600">
+        <DropdownMenuItem
+          className="text-red-600 focus:text-red-600"
+          onClick={logout}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           Sign Out
         </DropdownMenuItem>
