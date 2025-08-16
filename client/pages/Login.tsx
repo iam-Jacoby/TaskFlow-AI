@@ -57,9 +57,11 @@ export default function Login() {
               <CheckSquare className="w-7 h-7 text-white" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">Welcome to TaskFlow AI</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            {isSignUp ? 'Create Account' : 'Welcome to TaskFlow AI'}
+          </CardTitle>
           <CardDescription>
-            Sign in to your account to continue
+            {isSignUp ? 'Create a new account to get started' : 'Sign in to your account to continue'}
           </CardDescription>
         </CardHeader>
         <CardContent>
