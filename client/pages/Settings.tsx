@@ -120,7 +120,7 @@ export default function Settings() {
         </div>
 
         {/* Profile Settings */}
-        <Card>
+        <Card id="profile">
           <CardHeader>
             <CardTitle className="flex items-center">
               <User className="w-5 h-5 mr-2" />
@@ -200,7 +200,7 @@ export default function Settings() {
         </Card>
 
         {/* Notification Settings */}
-        <Card>
+        <Card id="notifications">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Bell className="w-5 h-5 mr-2" />
@@ -276,7 +276,7 @@ export default function Settings() {
         </Card>
 
         {/* Appearance & Preferences */}
-        <Card>
+        <Card id="preferences">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Palette className="w-5 h-5 mr-2" />
@@ -351,7 +351,7 @@ export default function Settings() {
         </Card>
 
         {/* Security & Privacy */}
-        <Card>
+        <Card id="security">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Shield className="w-5 h-5 mr-2" />
