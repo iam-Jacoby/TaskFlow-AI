@@ -184,26 +184,144 @@ export function DataDownloadModal({ children }: { children: React.ReactNode }) {
 
   const handleDownload = () => {
     setDownloading(true);
-    
-    // Simulate download
+
+    // Generate PDF content
     setTimeout(() => {
-      const data = {
-        profile: JSON.parse(localStorage.getItem('taskflow_user') || '{}'),
-        tasks: JSON.parse(localStorage.getItem('taskflow_tasks') || '[]'),
-        settings: JSON.parse(localStorage.getItem('taskflow_settings') || '{}'),
-        exportDate: new Date().toISOString()
-      };
-      
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const profile = JSON.parse(localStorage.getItem('taskflow_user') || '{}');
+      const tasks = JSON.parse(localStorage.getItem('taskflow_tasks') || '[]');
+      const settings = JSON.parse(localStorage.getItem('taskflow_settings') || '{}');
+      const exportDate = new Date().toLocaleDateString();
+
+      // Create HTML content for PDF
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>TaskFlow AI - Personal Data Export</title>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #6366f1; padding-bottom: 20px; margin-bottom: 30px; }
+            .header h1 { color: #6366f1; margin: 0; }
+            .header p { color: #666; margin: 5px 0; }
+            .section { margin-bottom: 30px; }
+            .section h2 { color: #4f46e5; border-left: 4px solid #6366f1; padding-left: 15px; }
+            .profile-info { background: #f8fafc; padding: 15px; border-radius: 8px; }
+            .task-item { background: #fff; border: 1px solid #e2e8f0; margin: 10px 0; padding: 15px; border-radius: 8px; }
+            .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+            .task-title { font-weight: bold; color: #1e293b; }
+            .task-status { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+            .status-todo { background: #f1f5f9; color: #475569; }
+            .status-progress { background: #dbeafe; color: #1d4ed8; }
+            .status-completed { background: #dcfce7; color: #166534; }
+            .priority { padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+            .priority-high { background: #fecaca; color: #991b1b; }
+            .priority-medium { background: #fef3c7; color: #92400e; }
+            .priority-low { background: #bfdbfe; color: #1e40af; }
+            .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+            .setting-group { background: #f8fafc; padding: 12px; border-radius: 6px; }
+            .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #666; }
+            table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+            th, td { padding: 8px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+            th { background: #f1f5f9; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>🚀 TaskFlow AI</h1>
+            <p>Personal Data Export</p>
+            <p>Generated on ${exportDate}</p>
+          </div>
+
+          <div class="section">
+            <h2>👤 Profile Information</h2>
+            <div class="profile-info">
+              <table>
+                <tr><th>Name</th><td>${profile.name || 'Not provided'}</td></tr>
+                <tr><th>Email</th><td>${profile.email || 'Not provided'}</td></tr>
+                <tr><th>Role</th><td>${profile.role || 'Not provided'}</td></tr>
+                <tr><th>Plan</th><td>${profile.plan || 'Not provided'}</td></tr>
+                <tr><th>Member Since</th><td>${profile.joinDate || 'Not provided'}</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2>📋 Tasks Summary</h2>
+            <div class="settings-grid">
+              <div class="setting-group">
+                <strong>Total Tasks:</strong> ${tasks.length || 0}
+              </div>
+              <div class="setting-group">
+                <strong>Completed:</strong> ${tasks.filter(t => t.status === 'completed').length || 0}
+              </div>
+              <div class="setting-group">
+                <strong>In Progress:</strong> ${tasks.filter(t => t.status === 'in-progress').length || 0}
+              </div>
+              <div class="setting-group">
+                <strong>To Do:</strong> ${tasks.filter(t => t.status === 'todo').length || 0}
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2>📝 All Tasks</h2>
+            ${tasks.length > 0 ? tasks.map(task => `
+              <div class="task-item">
+                <div class="task-header">
+                  <span class="task-title">${task.title}</span>
+                  <div>
+                    <span class="task-status status-${task.status.replace('-', '')}">${task.status.toUpperCase()}</span>
+                    <span class="priority priority-${task.priority}">${task.priority.toUpperCase()}</span>
+                  </div>
+                </div>
+                ${task.description ? `<p><strong>Description:</strong> ${task.description}</p>` : ''}
+                <p><strong>Category:</strong> ${task.category || 'None'}</p>
+                ${task.dueDate ? `<p><strong>Due Date:</strong> ${task.dueDate}</p>` : ''}
+                ${task.assignee ? `<p><strong>Assignee:</strong> ${task.assignee}</p>` : ''}
+                ${task.tags && task.tags.length > 0 ? `<p><strong>Tags:</strong> ${task.tags.join(', ')}</p>` : ''}
+                <p><strong>Created:</strong> ${task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'Unknown'}</p>
+              </div>
+            `).join('') : '<p>No tasks found.</p>'}
+          </div>
+
+          <div class="section">
+            <h2>⚙️ Settings & Preferences</h2>
+            <div class="settings-grid">
+              <div class="setting-group">
+                <h4>Theme Preferences</h4>
+                <p><strong>Theme:</strong> ${settings.preferences?.theme || 'System'}</p>
+                <p><strong>Date Format:</strong> ${settings.preferences?.dateFormat || 'MM/dd/yyyy'}</p>
+                <p><strong>Time Format:</strong> ${settings.preferences?.timeFormat || '12h'}</p>
+              </div>
+              <div class="setting-group">
+                <h4>Notifications</h4>
+                <p><strong>Email:</strong> ${settings.notifications?.email ? 'Enabled' : 'Disabled'}</p>
+                <p><strong>Push:</strong> ${settings.notifications?.push ? 'Enabled' : 'Disabled'}</p>
+                <p><strong>Task Reminders:</strong> ${settings.notifications?.taskReminders ? 'Enabled' : 'Disabled'}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <p>This export contains all your personal data from TaskFlow AI.</p>
+            <p>For questions about your data, contact: privacy@taskflow.ai</p>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // Create blob and download
+      const blob = new Blob([htmlContent], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `taskflow-data-${new Date().toISOString().split('T')[0]}.json`;
+      a.download = `TaskFlow-AI-Data-Export-${new Date().toISOString().split('T')[0]}.html`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       setDownloading(false);
       setOpen(false);
     }, 2000);
