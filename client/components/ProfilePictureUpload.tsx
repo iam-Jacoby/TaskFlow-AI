@@ -54,6 +54,8 @@ export function ProfilePictureUpload({ currentImage, userName, onImageChange }: 
   const handleRemoveImage = () => {
     localStorage.removeItem('taskflow_avatar');
     onImageChange(null);
+    // Trigger a custom event to notify other components
+    window.dispatchEvent(new Event('avatarChanged'));
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
