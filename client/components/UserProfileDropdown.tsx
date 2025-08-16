@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import {
   DropdownMenu,
@@ -22,6 +23,19 @@ import {
 
 export function UserProfileDropdown() {
   const { user, logout } = useAuth();
+  const [avatarImage, setAvatarImage] = useState<string | null>(
+    localStorage.getItem('taskflow_avatar')
+  );
+
+  // Listen for avatar changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setAvatarImage(localStorage.getItem('taskflow_avatar'));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   if (!user) return null;
 
