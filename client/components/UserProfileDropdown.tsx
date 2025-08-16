@@ -77,21 +77,21 @@ export function UserProfileDropdown() {
         <DropdownMenuSeparator />
         
         <DropdownMenuItem asChild>
-          <Link to="/settings" className="flex items-center">
+          <Link to="/settings#profile" className="flex items-center">
             <User className="mr-2 h-4 w-4" />
             Profile
           </Link>
         </DropdownMenuItem>
-        
+
         <DropdownMenuItem asChild>
           <Link to="/settings" className="flex items-center">
             <Settings className="mr-2 h-4 w-4" />
             Settings
           </Link>
         </DropdownMenuItem>
-        
+
         <DropdownMenuItem asChild>
-          <Link to="/settings" className="flex items-center">
+          <Link to="/settings#notifications" className="flex items-center">
             <Bell className="mr-2 h-4 w-4" />
             Notification Preferences
           </Link>
@@ -105,7 +105,7 @@ export function UserProfileDropdown() {
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <Link to="/settings" className="flex items-center">
+          <Link to="/settings#security" className="flex items-center">
             <Shield className="mr-2 h-4 w-4" />
             Privacy & Security
           </Link>
