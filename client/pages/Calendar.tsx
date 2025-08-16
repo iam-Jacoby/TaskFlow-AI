@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Badge } from '../components/ui/badge';
 import { Calendar as CalendarComponent } from '../components/ui/calendar';
 import { TaskCreationModal } from '../components/TaskCreationModal';
-import { 
+import { useTaskStore, Task } from '../hooks/useTaskStore';
+import {
   Plus,
   Calendar as CalendarIcon,
   Clock,
@@ -13,18 +14,6 @@ import {
   Users
 } from 'lucide-react';
 import { format, isSameDay, parseISO } from 'date-fns';
-
-interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  priority: 'low' | 'medium' | 'high';
-  status: 'todo' | 'in-progress' | 'completed';
-  category: string;
-  tags: string[];
-  dueDate?: string;
-  assignee?: string;
-}
 
 interface CalendarEvent {
   id: string;
@@ -34,28 +23,6 @@ interface CalendarEvent {
   type: 'task' | 'meeting' | 'deadline';
   priority?: 'low' | 'medium' | 'high';
 }
-
-const mockTasks: Task[] = [
-  {
-    id: '1',
-    title: 'Design user authentication flow',
-    priority: 'high',
-    status: 'in-progress',
-    category: 'Design',
-    tags: ['UI/UX', 'Auth'],
-    dueDate: '2024-01-15',
-    assignee: 'Sarah Chen'
-  },
-  {
-    id: '2',
-    title: 'Implement task drag and drop',
-    priority: 'medium',
-    status: 'todo',
-    category: 'Development',
-    tags: ['Frontend', 'React'],
-    dueDate: '2024-01-18'
-  }
-];
 
 const mockEvents: CalendarEvent[] = [
   {
