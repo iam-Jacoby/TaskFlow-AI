@@ -44,7 +44,7 @@ export function UserProfileDropdown() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user.avatar} alt={user.name} />
+            <AvatarImage src={avatarImage || user.avatar} alt={user.name} />
             <AvatarFallback className="bg-primary text-primary-foreground">
               {user.name.split(' ').map(n => n[0]).join('')}
             </AvatarFallback>
