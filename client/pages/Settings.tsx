@@ -153,14 +153,14 @@ export default function Settings() {
                 <Input
                   id="email"
                   type="email"
-                  value={profile.email}
-                  onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                  value={localProfile.email}
+                  onChange={(e) => setLocalProfile({ ...localProfile, email: e.target.value })}
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="timezone">Timezone</Label>
-                <Select value={profile.timezone} onValueChange={(value) => setProfile({ ...profile, timezone: value })}>
+                <Select value={localProfile.timezone} onValueChange={(value) => setLocalProfile({ ...localProfile, timezone: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -178,7 +178,7 @@ export default function Settings() {
 
               <div className="space-y-2">
                 <Label htmlFor="language">Language</Label>
-                <Select value={profile.language} onValueChange={(value) => setProfile({ ...profile, language: value })}>
+                <Select value={localProfile.language} onValueChange={(value) => setLocalProfile({ ...localProfile, language: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
