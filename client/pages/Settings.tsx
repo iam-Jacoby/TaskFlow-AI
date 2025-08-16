@@ -125,22 +125,11 @@ export default function Settings() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center space-x-4">
-              <Avatar className="h-20 w-20">
-                <AvatarImage src="" alt={localProfile.name} />
-                <AvatarFallback className="bg-primary text-primary-foreground text-lg">
-                  {localProfile.name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <Button variant="outline" size="sm">
-                  Change Avatar
-                </Button>
-                <p className="text-sm text-muted-foreground mt-1">
-                  JPG, PNG or GIF. Max size 2MB.
-                </p>
-              </div>
-            </div>
+            <ProfilePictureUpload
+              currentImage={avatarImage}
+              userName={localProfile.name}
+              onImageChange={setAvatarImage}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
