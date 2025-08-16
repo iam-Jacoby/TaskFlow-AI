@@ -177,18 +177,29 @@ export default function Index() {
                 
                 return (
                   <div key={task.id} className="flex items-center space-x-4 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0"
-                      onClick={() => toggleTaskStatus(task.id)}
-                    >
-                      <StatusIcon className={`w-4 h-4 ${
-                        task.status === 'completed' ? 'text-green-600' : 
-                        task.status === 'in-progress' ? 'text-blue-600' : 
-                        'text-muted-foreground'
-                      }`} />
-                    </Button>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0"
+                          onClick={() => toggleTaskStatus(task.id)}
+                        >
+                          <StatusIcon className={`w-4 h-4 ${
+                            task.status === 'completed' ? 'text-green-600' :
+                            task.status === 'in-progress' ? 'text-blue-600' :
+                            'text-muted-foreground'
+                          }`} />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>
+                          {task.status === 'completed' && 'Task completed - Click to mark as in-progress'}
+                          {task.status === 'in-progress' && 'Task in progress - Click to mark as completed'}
+                          {task.status === 'todo' && 'Task pending - Click to mark as in-progress'}
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
                     
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
