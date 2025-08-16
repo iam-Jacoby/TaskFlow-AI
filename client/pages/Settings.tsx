@@ -41,6 +41,9 @@ export default function Settings() {
   const [localProfile, setLocalProfile] = useState(settings.profile);
   const [localNotifications, setLocalNotifications] = useState(settings.notifications);
   const [localPreferences, setLocalPreferences] = useState(settings.preferences);
+  const [avatarImage, setAvatarImage] = useState<string | null>(
+    localStorage.getItem('taskflow_avatar')
+  );
 
   // Update local state when settings change
   React.useEffect(() => {
