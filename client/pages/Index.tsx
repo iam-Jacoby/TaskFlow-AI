@@ -6,6 +6,7 @@ import { Progress } from '../components/ui/progress';
 import { TaskCreationModal } from '../components/TaskCreationModal';
 import { TaskActionsDropdown } from '../components/TaskActionsDropdown';
 import { useTaskStore, Task } from '../hooks/useTaskStore';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../components/ui/tooltip';
 import {
   Plus,
   MoreHorizontal,
