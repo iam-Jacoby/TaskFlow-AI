@@ -219,7 +219,7 @@ export default function Settings() {
                   <p className="text-sm text-muted-foreground">Receive notifications via email</p>
                 </div>
                 <Switch
-                  checked={notifications.email}
+                  checked={localNotifications.email}
                   onCheckedChange={(checked) => setNotifications({ ...notifications, email: checked })}
                 />
               </div>
