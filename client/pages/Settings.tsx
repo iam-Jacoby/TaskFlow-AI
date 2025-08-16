@@ -220,7 +220,7 @@ export default function Settings() {
                 </div>
                 <Switch
                   checked={localNotifications.email}
-                  onCheckedChange={(checked) => setNotifications({ ...notifications, email: checked })}
+                  onCheckedChange={(checked) => setLocalNotifications({ ...localNotifications, email: checked })}
                 />
               </div>
 
