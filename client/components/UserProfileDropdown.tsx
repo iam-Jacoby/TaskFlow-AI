@@ -33,8 +33,17 @@ export function UserProfileDropdown() {
       setAvatarImage(localStorage.getItem('taskflow_avatar'));
     };
 
+    const handleAvatarChange = () => {
+      setAvatarImage(localStorage.getItem('taskflow_avatar'));
+    };
+
     window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener('avatarChanged', handleAvatarChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('avatarChanged', handleAvatarChange);
+    };
   }, []);
 
   if (!user) return null;
