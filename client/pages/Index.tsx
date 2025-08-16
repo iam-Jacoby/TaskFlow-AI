@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Layout } from '../components/Layout';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
@@ -6,6 +5,7 @@ import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';
 import { TaskCreationModal } from '../components/TaskCreationModal';
 import { TaskActionsDropdown } from '../components/TaskActionsDropdown';
+import { useTaskStore, Task } from '../hooks/useTaskStore';
 import {
   Plus,
   MoreHorizontal,
@@ -19,60 +19,6 @@ import {
   Target,
   Zap
 } from 'lucide-react';
-
-interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  priority: 'low' | 'medium' | 'high';
-  status: 'todo' | 'in-progress' | 'completed';
-  category: string;
-  tags: string[];
-  dueDate?: string;
-  assignee?: string;
-}
-
-const mockTasks: Task[] = [
-  {
-    id: '1',
-    title: 'Design user authentication flow',
-    description: 'Create wireframes and prototypes for the login and signup process',
-    priority: 'high',
-    status: 'in-progress',
-    category: 'Design',
-    tags: ['UI/UX', 'Auth'],
-    dueDate: '2024-01-15',
-    assignee: 'Sarah Chen'
-  },
-  {
-    id: '2',
-    title: 'Implement task drag and drop',
-    description: 'Add drag and drop functionality for task reordering',
-    priority: 'medium',
-    status: 'todo',
-    category: 'Development',
-    tags: ['Frontend', 'React'],
-    dueDate: '2024-01-18'
-  },
-  {
-    id: '3',
-    title: 'Set up CI/CD pipeline',
-    priority: 'high',
-    status: 'completed',
-    category: 'DevOps',
-    tags: ['CI/CD', 'Automation'],
-    dueDate: '2024-01-10'
-  },
-  {
-    id: '4',
-    title: 'Write API documentation',
-    priority: 'low',
-    status: 'todo',
-    category: 'Documentation',
-    tags: ['API', 'Docs'],
-    dueDate: '2024-01-20'
-  }
-];
 
 const priorityColors = {
   low: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
