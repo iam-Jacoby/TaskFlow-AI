@@ -138,22 +138,25 @@ export function TaskCreationModal({ trigger, onTaskCreate }: TaskCreationModalPr
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full justify-start text-left font-normal"
+                  className={`w-full justify-start text-left font-normal ${
+                    !dueDate && "text-muted-foreground"
+                  }`}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {dueDate ? format(dueDate, 'PPP') : 'Pick a date'}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0 z-50" align="start" sideOffset={4}>
+              <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
                   selected={dueDate}
-                  onSelect={(date) => {
-                    setDueDate(date);
-                  }}
+                  onSelect={setDueDate}
                   initialFocus
-                  disabled={(date) => date < new Date()}
-                  className="rounded-md border shadow"
+                  disabled={(date) => {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    return date < today;
+                  }}
                 />
               </PopoverContent>
             </Popover>
