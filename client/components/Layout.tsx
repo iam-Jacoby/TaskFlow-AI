@@ -1,6 +1,7 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useSettings } from '../hooks/useSettings';
 import {
   LayoutDashboard,
   CheckSquare,
