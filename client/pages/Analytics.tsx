@@ -197,9 +197,9 @@ export default function Analytics() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {categoryData.map((category) => {
-                const percentage = Math.round((category.completed / category.tasks) * 100);
-                
+              {analytics.categoryData.map((category) => {
+                const percentage = category.tasks > 0 ? Math.round((category.completed / category.tasks) * 100) : 0;
+
                 return (
                   <div key={category.category} className="flex items-center space-x-4">
                     <div className={`w-4 h-4 rounded ${category.color}`}></div>
@@ -218,6 +218,13 @@ export default function Analytics() {
                   </div>
                 );
               })}
+              {analytics.categoryData.length === 0 && (
+                <div className="text-center py-8 text-muted-foreground">
+                  <BarChart3 className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>No task categories to display</p>
+                  <p className="text-sm">Create some tasks to see analytics</p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
