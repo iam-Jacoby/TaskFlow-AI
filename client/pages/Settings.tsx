@@ -10,6 +10,7 @@ import { Separator } from '../components/ui/separator';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { useSettings } from '../hooks/useSettings';
+import { ProfilePictureUpload } from '../components/ProfilePictureUpload';
 import {
   User,
   Bell,
