@@ -5,11 +5,8 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Label } from './ui/label';
-import { Calendar } from './ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Badge } from './ui/badge';
 import { Plus, Calendar as CalendarIcon, X } from 'lucide-react';
-import { format } from 'date-fns';
 
 interface TaskCreationModalProps {
   trigger?: React.ReactNode;
