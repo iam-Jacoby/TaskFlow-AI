@@ -305,7 +305,7 @@ export default function Settings() {
 
               <div className="space-y-2">
                 <Label htmlFor="dateFormat">Date Format</Label>
-                <Select value={localPreferences.dateFormat} onValueChange={(value) => setPreferences({ ...preferences, dateFormat: value })}>
+                <Select value={localPreferences.dateFormat} onValueChange={(value) => setLocalPreferences({ ...localPreferences, dateFormat: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -319,7 +319,7 @@ export default function Settings() {
 
               <div className="space-y-2">
                 <Label htmlFor="timeFormat">Time Format</Label>
-                <Select value={localPreferences.timeFormat} onValueChange={(value) => setPreferences({ ...preferences, timeFormat: value })}>
+                <Select value={localPreferences.timeFormat} onValueChange={(value) => setLocalPreferences({ ...localPreferences, timeFormat: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
