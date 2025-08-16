@@ -189,10 +189,10 @@ export default function Tasks() {
                     
                     <TaskActionsDropdown
                       taskId={task.id}
-                      onDelete={handleDeleteTask}
-                      onDuplicate={handleDuplicateTask}
-                      onSetPriority={handleSetPriority}
-                      onArchive={handleArchiveTask}
+                      onDelete={deleteTask}
+                      onDuplicate={duplicateTask}
+                      onSetPriority={setTaskPriority}
+                      onArchive={archiveTask}
                     />
                   </div>
                 );
