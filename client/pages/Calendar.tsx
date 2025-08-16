@@ -56,12 +56,12 @@ const priorityColors = {
 };
 
 export default function Calendar() {
-  const [tasks, setTasks] = useState<Task[]>(mockTasks);
+  const { tasks, addTask } = useTaskStore();
   const [events] = useState<CalendarEvent[]>(mockEvents);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  const handleTaskCreate = (newTask: Task) => {
-    setTasks([newTask, ...tasks]);
+  const handleTaskCreate = (taskData: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) => {
+    addTask(taskData);
   };
 
   // Get tasks and events for selected date
