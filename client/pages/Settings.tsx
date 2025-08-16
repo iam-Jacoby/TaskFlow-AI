@@ -12,6 +12,12 @@ import { Alert, AlertDescription } from '../components/ui/alert';
 import { useSettings } from '../hooks/useSettings';
 import { ProfilePictureUpload } from '../components/ProfilePictureUpload';
 import {
+  ChangePasswordModal,
+  TwoFactorModal,
+  DataDownloadModal,
+  DeleteAccountModal
+} from '../components/SecurityModals';
+import {
   User,
   Bell,
   Shield,
