@@ -99,7 +99,7 @@ export default function Settings() {
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold text-foreground">Settings</h1>
-          <p className="text-muted-foreground mt-1">Manage your account settings and preferences.</p>
+          <p className="text-muted-foreground mt-1">Manage your account settings and localPreferences.</p>
 
           {saveMessage && (
             <Alert className="mt-4">
@@ -291,7 +291,7 @@ export default function Settings() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="theme">Theme</Label>
-                <Select value={preferences.theme} onValueChange={(value) => setPreferences({ ...preferences, theme: value })}>
+                <Select value={localPreferences.theme} onValueChange={(value) => setPreferences({ ...preferences, theme: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -305,7 +305,7 @@ export default function Settings() {
 
               <div className="space-y-2">
                 <Label htmlFor="dateFormat">Date Format</Label>
-                <Select value={preferences.dateFormat} onValueChange={(value) => setPreferences({ ...preferences, dateFormat: value })}>
+                <Select value={localPreferences.dateFormat} onValueChange={(value) => setPreferences({ ...preferences, dateFormat: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -319,7 +319,7 @@ export default function Settings() {
 
               <div className="space-y-2">
                 <Label htmlFor="timeFormat">Time Format</Label>
-                <Select value={preferences.timeFormat} onValueChange={(value) => setPreferences({ ...preferences, timeFormat: value })}>
+                <Select value={localPreferences.timeFormat} onValueChange={(value) => setPreferences({ ...preferences, timeFormat: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -332,7 +332,7 @@ export default function Settings() {
 
               <div className="space-y-2">
                 <Label htmlFor="startOfWeek">Start of Week</Label>
-                <Select value={preferences.startOfWeek} onValueChange={(value) => setPreferences({ ...preferences, startOfWeek: value })}>
+                <Select value={localPreferences.startOfWeek} onValueChange={(value) => setPreferences({ ...preferences, startOfWeek: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
