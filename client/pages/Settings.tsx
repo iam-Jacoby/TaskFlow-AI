@@ -362,27 +362,35 @@ export default function Settings() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button variant="outline" className="w-full justify-start">
-              <Lock className="w-4 h-4 mr-2" />
-              Change Password
-            </Button>
-            
-            <Button variant="outline" className="w-full justify-start">
-              <Smartphone className="w-4 h-4 mr-2" />
-              Two-Factor Authentication
-            </Button>
-            
-            <Button variant="outline" className="w-full justify-start">
-              <Download className="w-4 h-4 mr-2" />
-              Download Your Data
-            </Button>
+            <ChangePasswordModal>
+              <Button variant="outline" className="w-full justify-start">
+                <Lock className="w-4 h-4 mr-2" />
+                Change Password
+              </Button>
+            </ChangePasswordModal>
+
+            <TwoFactorModal>
+              <Button variant="outline" className="w-full justify-start">
+                <Smartphone className="w-4 h-4 mr-2" />
+                Two-Factor Authentication
+              </Button>
+            </TwoFactorModal>
+
+            <DataDownloadModal>
+              <Button variant="outline" className="w-full justify-start">
+                <Download className="w-4 h-4 mr-2" />
+                Download Your Data
+              </Button>
+            </DataDownloadModal>
 
             <Separator />
 
-            <Button variant="destructive" className="w-full justify-start">
-              <Trash2 className="w-4 h-4 mr-2" />
-              Delete Account
-            </Button>
+            <DeleteAccountModal>
+              <Button variant="destructive" className="w-full justify-start">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Delete Account
+              </Button>
+            </DeleteAccountModal>
           </CardContent>
         </Card>
       </div>
