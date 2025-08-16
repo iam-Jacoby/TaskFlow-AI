@@ -291,7 +291,7 @@ export default function Settings() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="theme">Theme</Label>
-                <Select value={localPreferences.theme} onValueChange={(value) => setPreferences({ ...preferences, theme: value })}>
+                <Select value={localPreferences.theme} onValueChange={(value) => setLocalPreferences({ ...localPreferences, theme: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
