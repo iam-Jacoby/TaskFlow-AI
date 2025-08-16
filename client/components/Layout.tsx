@@ -37,14 +37,49 @@ const sidebarItems = [
 
 export function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
   const { user } = useAuth();
+  const { settings, updatePreferences } = useSettings();
+
+  // Apply theme on mount and when settings change
+  useEffect(() => {
+    const applyTheme = () => {
+      const { theme } = settings.preferences;
+
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        // System theme
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    };
+
+    applyTheme();
+  }, [settings.preferences.theme]);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('dark');
+    const currentTheme = settings.preferences.theme;
+    let newTheme: 'light' | 'dark' | 'system';
+
+    if (currentTheme === 'light') {
+      newTheme = 'dark';
+    } else if (currentTheme === 'dark') {
+      newTheme = 'system';
+    } else {
+      newTheme = 'light';
+    }
+
+    updatePreferences({ theme: newTheme });
   };
+
+  const isDark = document.documentElement.classList.contains('dark');
 
   return (
     <div className={`min-h-screen bg-background ${darkMode ? 'dark' : ''}`}>
