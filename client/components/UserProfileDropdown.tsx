@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,10 +10,10 @@ import {
 } from './ui/dropdown-menu';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { 
-  User, 
-  Settings, 
-  HelpCircle, 
+import {
+  User,
+  Settings,
+  HelpCircle,
   LogOut,
   CreditCard,
   Shield,
@@ -20,12 +21,9 @@ import {
 } from 'lucide-react';
 
 export function UserProfileDropdown() {
-  const user = {
-    name: 'Jacob Abraham',
-    email: 'jacob@taskflow.ai',
-    avatar: '', // Empty for now, will show initials
-    plan: 'Pro'
-  };
+  const { user, logout } = useAuth();
+
+  if (!user) return null;
 
   return (
     <DropdownMenu>
