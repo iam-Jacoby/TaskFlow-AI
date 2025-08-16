@@ -40,6 +40,8 @@ export function ProfilePictureUpload({ currentImage, userName, onImageChange }: 
       const result = e.target?.result as string;
       localStorage.setItem('taskflow_avatar', result);
       onImageChange(result);
+      // Trigger a custom event to notify other components
+      window.dispatchEvent(new Event('avatarChanged'));
       setIsUploading(false);
     };
     reader.onerror = () => {
