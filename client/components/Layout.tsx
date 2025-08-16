@@ -168,7 +168,7 @@ export function Layout({ children }: LayoutProps) {
           
           <div className="flex items-center space-x-3">
             <Button variant="ghost" size="sm" onClick={toggleDarkMode}>
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
 
             <NotificationsPanel />
