@@ -55,7 +55,7 @@ export function TaskCreationModal({ trigger, onTaskCreate }: TaskCreationModalPr
     setDescription('');
     setPriority('medium');
     setCategory('');
-    setDueDate(undefined);
+    setDueDate('');
     setTags([]);
     setTagInput('');
     setOpen(false);
