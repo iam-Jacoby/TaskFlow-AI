@@ -100,6 +100,13 @@ export default function Settings() {
         <div>
           <h1 className="text-3xl font-bold text-foreground">Settings</h1>
           <p className="text-muted-foreground mt-1">Manage your account settings and preferences.</p>
+
+          {saveMessage && (
+            <Alert className="mt-4">
+              <CheckCircle2 className="h-4 w-4" />
+              <AlertDescription>{saveMessage}</AlertDescription>
+            </Alert>
+          )}
         </div>
 
         {/* Profile Settings */}
