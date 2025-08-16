@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
@@ -34,6 +35,7 @@ import {
 } from 'lucide-react';
 
 export default function Settings() {
+  const location = useLocation();
   const {
     settings,
     isLoading,
@@ -50,6 +52,28 @@ export default function Settings() {
   const [avatarImage, setAvatarImage] = useState<string | null>(
     localStorage.getItem('taskflow_avatar')
   );
+
+  // Auto-scroll to section when hash is present in URL
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.substring(1); // Remove the '#' character
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        // Small delay to ensure the page is fully rendered
+        setTimeout(() => {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Add a temporary highlight effect
+          targetElement.style.boxShadow = '0 0 0 3px rgba(99, 102, 241, 0.3)';
+          setTimeout(() => {
+            targetElement.style.boxShadow = '';
+          }, 2000);
+        }, 100);
+      }
+    }
+  }, [location.hash]);
 
   // Update local state when settings change
   React.useEffect(() => {
