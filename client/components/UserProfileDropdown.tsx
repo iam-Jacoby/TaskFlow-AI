@@ -81,21 +81,25 @@ export function UserProfileDropdown() {
           </Link>
         </DropdownMenuItem>
         
-        <DropdownMenuItem>
-          <Bell className="mr-2 h-4 w-4" />
-          Notification Preferences
+        <DropdownMenuItem asChild>
+          <Link to="/settings" className="flex items-center">
+            <Bell className="mr-2 h-4 w-4" />
+            Notification Preferences
+          </Link>
         </DropdownMenuItem>
-        
+
         <DropdownMenuSeparator />
-        
-        <DropdownMenuItem>
+
+        <DropdownMenuItem onClick={() => alert('Billing features coming soon! This would integrate with Stripe or similar payment system.')}>
           <CreditCard className="mr-2 h-4 w-4" />
           Billing & Subscription
         </DropdownMenuItem>
-        
-        <DropdownMenuItem>
-          <Shield className="mr-2 h-4 w-4" />
-          Privacy & Security
+
+        <DropdownMenuItem asChild>
+          <Link to="/settings" className="flex items-center">
+            <Shield className="mr-2 h-4 w-4" />
+            Privacy & Security
+          </Link>
         </DropdownMenuItem>
         
         <DropdownMenuSeparator />
