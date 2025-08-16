@@ -38,6 +38,7 @@ export function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
