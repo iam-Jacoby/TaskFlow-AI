@@ -33,7 +33,16 @@ const statusIcons = {
 };
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState<Task[]>(mockTasks);
+  const {
+    tasks,
+    addTask,
+    toggleTaskStatus,
+    deleteTask,
+    duplicateTask,
+    setTaskPriority,
+    archiveTask
+  } = useTaskStore();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
@@ -42,54 +51,15 @@ export default function Tasks() {
     const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          task.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          task.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
+
     const matchesStatus = statusFilter === 'all' || task.status === statusFilter;
     const matchesPriority = priorityFilter === 'all' || task.priority === priorityFilter;
-    
+
     return matchesSearch && matchesStatus && matchesPriority;
   });
 
-  const toggleTaskStatus = (taskId: string) => {
-    setTasks(tasks.map(task => {
-      if (task.id === taskId) {
-        const statusOrder = ['todo', 'in-progress', 'completed'] as const;
-        const currentIndex = statusOrder.indexOf(task.status);
-        const nextIndex = (currentIndex + 1) % statusOrder.length;
-        return { ...task, status: statusOrder[nextIndex] };
-      }
-      return task;
-    }));
-  };
-
-  const handleTaskCreate = (newTask: Task) => {
-    setTasks([newTask, ...tasks]);
-  };
-
-  const handleDeleteTask = (taskId: string) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
-  };
-
-  const handleDuplicateTask = (taskId: string) => {
-    const taskToDuplicate = tasks.find(task => task.id === taskId);
-    if (taskToDuplicate) {
-      const duplicatedTask = {
-        ...taskToDuplicate,
-        id: Date.now().toString(),
-        title: `${taskToDuplicate.title} (Copy)`,
-        status: 'todo' as const
-      };
-      setTasks([duplicatedTask, ...tasks]);
-    }
-  };
-
-  const handleSetPriority = (taskId: string, priority: 'low' | 'medium' | 'high') => {
-    setTasks(tasks.map(task => 
-      task.id === taskId ? { ...task, priority } : task
-    ));
-  };
-
-  const handleArchiveTask = (taskId: string) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+  const handleTaskCreate = (taskData: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) => {
+    addTask(taskData);
   };
 
   return (
