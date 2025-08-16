@@ -102,7 +102,7 @@ export default function Analytics() {
               <Target className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{totalTasks}</div>
+              <div className="text-2xl font-bold">{analytics.totalTasks}</div>
               <p className="text-xs text-muted-foreground">
                 <span className="text-green-600 flex items-center">
                   <TrendingUp className="w-3 h-3 mr-1" />
@@ -119,7 +119,7 @@ export default function Analytics() {
               <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{completedTasks}</div>
+              <div className="text-2xl font-bold">{analytics.completedTasks}</div>
               <p className="text-xs text-muted-foreground">
                 <span className="text-green-600 flex items-center">
                   <TrendingUp className="w-3 h-3 mr-1" />
@@ -136,20 +136,20 @@ export default function Analytics() {
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{completionRate}%</div>
-              <Progress value={completionRate} className="mt-2" />
+              <div className="text-2xl font-bold">{analytics.completionRate}%</div>
+              <Progress value={analytics.completionRate} className="mt-2" />
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg Per Day</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+              <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{avgCompletedPerDay}/{avgTasksPerDay}</div>
+              <div className="text-2xl font-bold">{analytics.inProgressTasks}</div>
               <p className="text-xs text-muted-foreground">
-                Completed / Total tasks
+                Currently active tasks
               </p>
             </CardContent>
           </Card>
