@@ -104,7 +104,7 @@ export function UserProfileDropdown() {
         
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => alert('Help & Support: For assistance, contact support@taskflow.ai or visit our documentation at docs.taskflow.ai')}>
           <HelpCircle className="mr-2 h-4 w-4" />
           Help & Support
         </DropdownMenuItem>
