@@ -45,7 +45,7 @@ export function TaskCreationModal({ trigger, onTaskCreate }: TaskCreationModalPr
       status: 'todo' as const,
       category,
       tags,
-      dueDate: dueDate ? format(dueDate, 'yyyy-MM-dd') : undefined,
+      dueDate: dueDate || undefined,
     };
 
     onTaskCreate?.(newTask);
