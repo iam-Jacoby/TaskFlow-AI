@@ -310,8 +310,8 @@ export default function Settings() {
               Customize your TaskFlow AI experience
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="theme">Theme</Label>
                 <Select value={localPreferences.theme} onValueChange={(value) => setLocalPreferences({ ...localPreferences, theme: value })}>
