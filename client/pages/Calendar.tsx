@@ -81,9 +81,9 @@ export default function Calendar() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Calendar</h1>
-            <p className="text-muted-foreground mt-1">View and manage your tasks and events in calendar format.</p>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Calendar</h1>
+            <p className="text-muted-foreground mt-1 text-sm sm:text-base">View and manage your tasks and events in calendar format.</p>
           </div>
           <TaskCreationModal 
             onTaskCreate={handleTaskCreate}
@@ -96,7 +96,7 @@ export default function Calendar() {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Calendar */}
           <Card className="lg:col-span-2">
             <CardHeader>
@@ -110,7 +110,7 @@ export default function Calendar() {
                 mode="single"
                 selected={selectedDate}
                 onSelect={(date) => date && setSelectedDate(date)}
-                className="rounded-md border w-full"
+                className="rounded-md border w-full mx-auto max-w-sm sm:max-w-none"
                 modifiers={{
                   hasItems: datesWithItems
                 }}
