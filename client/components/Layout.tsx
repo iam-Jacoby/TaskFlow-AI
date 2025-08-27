@@ -134,9 +134,10 @@ export function Layout({ children }: LayoutProps) {
         <div className="absolute bottom-4 left-3 right-3">
           <TaskCreationModal
             trigger={
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm">
                 <Plus className="w-4 h-4 mr-2" />
-                New Task
+                <span className="hidden sm:inline">New Task</span>
+                <span className="sm:hidden">New</span>
               </Button>
             }
           />
@@ -146,8 +147,8 @@ export function Layout({ children }: LayoutProps) {
       {/* Main Content */}
       <div className="lg:ml-64">
         {/* Top Bar */}
-        <header className="sticky top-0 z-40 h-16 bg-background border-b border-border flex items-center justify-between px-6">
-          <div className="flex items-center space-x-4">
+        <header className="sticky top-0 z-40 h-16 bg-background border-b border-border flex items-center justify-between px-4 sm:px-6">
+          <div className="flex items-center space-x-2 sm:space-x-4 flex-1 min-w-0">
             <Button
               variant="ghost"
               size="sm"
@@ -157,16 +158,16 @@ export function Layout({ children }: LayoutProps) {
               <Menu className="w-5 h-5" />
             </Button>
             
-            <div className="relative">
+            <div className="relative flex-1 max-w-sm">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 placeholder="Search tasks..."
-                className="pl-10 w-80 bg-muted/50"
+                className="pl-10 w-full bg-muted/50"
               />
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1 sm:space-x-3 flex-shrink-0">
             <Button variant="ghost" size="sm" onClick={toggleDarkMode}>
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
@@ -178,7 +179,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="p-6 pt-6 lg:pt-6">
+        <main className="p-4 sm:p-6 pt-4 sm:pt-6 lg:pt-6">
           {children}
         </main>
       </div>
