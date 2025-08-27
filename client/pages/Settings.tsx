@@ -234,12 +234,12 @@ export default function Settings() {
               Configure how you want to be notified about updates
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6">
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+              <div className="flex items-start sm:items-center justify-between gap-4">
+                <div className="space-y-0.5 flex-1 min-w-0">
                   <Label>Email Notifications</Label>
-                  <p className="text-sm text-muted-foreground">Receive notifications via email</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Receive notifications via email</p>
                 </div>
                 <Switch
                   checked={localNotifications.email}
@@ -247,10 +247,10 @@ export default function Settings() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+              <div className="flex items-start sm:items-center justify-between gap-4">
+                <div className="space-y-0.5 flex-1 min-w-0">
                   <Label>Push Notifications</Label>
-                  <p className="text-sm text-muted-foreground">Receive push notifications in browser</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Receive push notifications in browser</p>
                 </div>
                 <Switch
                   checked={localNotifications.push}
@@ -258,10 +258,10 @@ export default function Settings() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+              <div className="flex items-start sm:items-center justify-between gap-4">
+                <div className="space-y-0.5 flex-1 min-w-0">
                   <Label>Task Reminders</Label>
-                  <p className="text-sm text-muted-foreground">Get reminders for upcoming deadlines</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Get reminders for upcoming deadlines</p>
                 </div>
                 <Switch
                   checked={localNotifications.taskReminders}
@@ -269,10 +269,10 @@ export default function Settings() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+              <div className="flex items-start sm:items-center justify-between gap-4">
+                <div className="space-y-0.5 flex-1 min-w-0">
                   <Label>Team Updates</Label>
-                  <p className="text-sm text-muted-foreground">Notifications about team activity</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Notifications about team activity</p>
                 </div>
                 <Switch
                   checked={localNotifications.teamUpdates}
@@ -280,10 +280,10 @@ export default function Settings() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
+              <div className="flex items-start sm:items-center justify-between gap-4">
+                <div className="space-y-0.5 flex-1 min-w-0">
                   <Label>Weekly Reports</Label>
-                  <p className="text-sm text-muted-foreground">Weekly productivity summaries</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Weekly productivity summaries</p>
                 </div>
                 <Switch
                   checked={localNotifications.weeklyReports}
