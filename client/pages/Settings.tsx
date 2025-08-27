@@ -132,8 +132,8 @@ export default function Settings() {
       <div className="space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Settings</h1>
-          <p className="text-muted-foreground mt-1">Manage your account settings and preferences.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Settings</h1>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">Manage your account settings and preferences.</p>
 
           {saveMessage && (
             <Alert className="mt-4">
@@ -154,14 +154,14 @@ export default function Settings() {
               Update your personal information and account details
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4 sm:space-y-6 p-4 sm:p-6">
             <ProfilePictureUpload
               currentImage={avatarImage}
               userName={localProfile.name}
               onImageChange={setAvatarImage}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <Input
