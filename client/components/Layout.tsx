@@ -1,7 +1,7 @@
-import { ReactNode, useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useSettings } from '../hooks/useSettings';
+import { ReactNode, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useSettings } from "../hooks/useSettings";
 import {
   LayoutDashboard,
   CheckSquare,
@@ -14,25 +14,25 @@ import {
   Menu,
   X,
   Moon,
-  Sun
-} from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { TaskCreationModal } from './TaskCreationModal';
-import { NotificationsPanel } from './NotificationsPanel';
-import { UserProfileDropdown } from './UserProfileDropdown';
+  Sun,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { TaskCreationModal } from "./TaskCreationModal";
+import { NotificationsPanel } from "./NotificationsPanel";
+import { UserProfileDropdown } from "./UserProfileDropdown";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const sidebarItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-  { icon: CheckSquare, label: 'Tasks', path: '/tasks' },
-  { icon: Calendar, label: 'Calendar', path: '/calendar' },
-  { icon: BarChart3, label: 'Analytics', path: '/analytics' },
-  { icon: Users, label: 'Team', path: '/team' },
-  { icon: Settings, label: 'Settings', path: '/settings' },
+  { icon: LayoutDashboard, label: "Dashboard", path: "/" },
+  { icon: CheckSquare, label: "Tasks", path: "/tasks" },
+  { icon: Calendar, label: "Calendar", path: "/calendar" },
+  { icon: BarChart3, label: "Analytics", path: "/analytics" },
+  { icon: Users, label: "Team", path: "/team" },
+  { icon: Settings, label: "Settings", path: "/settings" },
 ];
 
 export function Layout({ children }: LayoutProps) {
@@ -46,17 +46,19 @@ export function Layout({ children }: LayoutProps) {
     const applyTheme = () => {
       const { theme } = settings.preferences;
 
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else if (theme === "light") {
+        document.documentElement.classList.remove("dark");
       } else {
         // System theme
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
         if (prefersDark) {
-          document.documentElement.classList.add('dark');
+          document.documentElement.classList.add("dark");
         } else {
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove("dark");
         }
       }
     };
@@ -66,35 +68,39 @@ export function Layout({ children }: LayoutProps) {
 
   const toggleDarkMode = () => {
     const currentTheme = settings.preferences.theme;
-    let newTheme: 'light' | 'dark' | 'system';
+    let newTheme: "light" | "dark" | "system";
 
-    if (currentTheme === 'light') {
-      newTheme = 'dark';
-    } else if (currentTheme === 'dark') {
-      newTheme = 'system';
+    if (currentTheme === "light") {
+      newTheme = "dark";
+    } else if (currentTheme === "dark") {
+      newTheme = "system";
     } else {
-      newTheme = 'light';
+      newTheme = "light";
     }
 
     updatePreferences({ theme: newTheme });
   };
 
-  const isDark = document.documentElement.classList.contains('dark');
+  const isDark = document.documentElement.classList.contains("dark");
 
   return (
     <div className="min-h-screen bg-background">
       {/* Sidebar */}
-      <aside className={`
+      <aside
+        className={`
         fixed inset-y-0 left-0 z-50 w-64 bg-sidebar transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0 lg:fixed lg:inset-y-0
-      `}>
+      `}
+      >
         <div className="flex items-center justify-between h-16 px-6 border-b border-sidebar-border">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
               <CheckSquare className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-sidebar-foreground">TaskFlow AI</span>
+            <span className="text-xl font-bold text-sidebar-foreground">
+              TaskFlow AI
+            </span>
           </div>
           <Button
             variant="ghost"
@@ -105,7 +111,7 @@ export function Layout({ children }: LayoutProps) {
             <X className="w-5 h-5" />
           </Button>
         </div>
-        
+
         <nav className="mt-6 px-3 pb-20">
           {sidebarItems.map((item) => {
             const Icon = item.icon;
@@ -117,9 +123,10 @@ export function Layout({ children }: LayoutProps) {
                 to={item.path}
                 className={`
                   flex items-center space-x-3 px-3 py-2.5 rounded-lg mb-1 transition-colors
-                  ${isActive
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
-                    : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                  ${
+                    isActive
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
                   }
                 `}
                 onClick={() => setSidebarOpen(false)}
@@ -157,7 +164,7 @@ export function Layout({ children }: LayoutProps) {
             >
               <Menu className="w-5 h-5" />
             </Button>
-            
+
             <div className="relative flex-1 max-w-sm">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
@@ -166,10 +173,14 @@ export function Layout({ children }: LayoutProps) {
               />
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-1 sm:space-x-3 flex-shrink-0">
             <Button variant="ghost" size="sm" onClick={toggleDarkMode}>
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {isDark ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
             </Button>
 
             <NotificationsPanel />
@@ -179,14 +190,12 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="p-4 sm:p-6 pt-4 sm:pt-6 lg:pt-6">
-          {children}
-        </main>
+        <main className="p-4 sm:p-6 pt-4 sm:pt-6 lg:pt-6">{children}</main>
       </div>
 
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />

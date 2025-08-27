@@ -1,13 +1,25 @@
-import { useState } from 'react';
-import { Layout } from '../components/Layout';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Input } from '../components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { TaskCreationModal } from '../components/TaskCreationModal';
-import { TaskActionsDropdown } from '../components/TaskActionsDropdown';
-import { useTaskStore, Task } from '../hooks/useTaskStore';
+import { useState } from "react";
+import { Layout } from "../components/Layout";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { Input } from "../components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+import { TaskCreationModal } from "../components/TaskCreationModal";
+import { TaskActionsDropdown } from "../components/TaskActionsDropdown";
+import { useTaskStore, Task } from "../hooks/useTaskStore";
 import {
   Plus,
   Search,
@@ -17,19 +29,20 @@ import {
   Clock,
   CheckCircle2,
   Circle,
-  ArrowUpDown
-} from 'lucide-react';
+  ArrowUpDown,
+} from "lucide-react";
 
 const priorityColors = {
-  low: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-  high: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+  low: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+  medium:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+  high: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
 };
 
 const statusIcons = {
   todo: Circle,
-  'in-progress': Clock,
-  completed: CheckCircle2
+  "in-progress": Clock,
+  completed: CheckCircle2,
 };
 
 export default function Tasks() {
@@ -40,25 +53,32 @@ export default function Tasks() {
     deleteTask,
     duplicateTask,
     setTaskPriority,
-    archiveTask
+    archiveTask,
   } = useTaskStore();
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [priorityFilter, setPriorityFilter] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [priorityFilter, setPriorityFilter] = useState<string>("all");
 
-  const filteredTasks = tasks.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         task.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         task.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredTasks = tasks.filter((task) => {
+    const matchesSearch =
+      task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      task.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      task.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
 
-    const matchesStatus = statusFilter === 'all' || task.status === statusFilter;
-    const matchesPriority = priorityFilter === 'all' || task.priority === priorityFilter;
+    const matchesStatus =
+      statusFilter === "all" || task.status === statusFilter;
+    const matchesPriority =
+      priorityFilter === "all" || task.priority === priorityFilter;
 
     return matchesSearch && matchesStatus && matchesPriority;
   });
 
-  const handleTaskCreate = (taskData: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const handleTaskCreate = (
+    taskData: Omit<Task, "id" | "createdAt" | "updatedAt">,
+  ) => {
     addTask(taskData);
   };
 
@@ -68,8 +88,12 @@ export default function Tasks() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground truncate">Tasks</h1>
-            <p className="text-muted-foreground mt-1 text-sm sm:text-base">Manage and organize all your tasks in one place.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground truncate">
+              Tasks
+            </h1>
+            <p className="text-muted-foreground mt-1 text-sm sm:text-base">
+              Manage and organize all your tasks in one place.
+            </p>
           </div>
           <TaskCreationModal
             onTaskCreate={handleTaskCreate}
@@ -107,7 +131,10 @@ export default function Tasks() {
                     <SelectItem value="completed">Completed</SelectItem>
                   </SelectContent>
                 </Select>
-                <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                <Select
+                  value={priorityFilter}
+                  onValueChange={setPriorityFilter}
+                >
                   <SelectTrigger className="w-full sm:w-40">
                     <SelectValue placeholder="Filter by priority" />
                   </SelectTrigger>
@@ -126,9 +153,13 @@ export default function Tasks() {
         {/* Task List */}
         <Card>
           <CardHeader className="p-4 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl">Task List ({filteredTasks.length})</CardTitle>
+            <CardTitle className="text-lg sm:text-xl">
+              Task List ({filteredTasks.length})
+            </CardTitle>
             <CardDescription className="text-sm">
-              {filteredTasks.length === 0 ? 'No tasks match your current filters.' : 'Tap on task status to update, or use the menu for more actions.'}
+              {filteredTasks.length === 0
+                ? "No tasks match your current filters."
+                : "Tap on task status to update, or use the menu for more actions."}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4 sm:p-6 pt-0">
@@ -137,27 +168,39 @@ export default function Tasks() {
                 const StatusIcon = statusIcons[task.status];
 
                 return (
-                  <div key={task.id} className="flex items-start sm:items-center space-x-3 sm:space-x-4 p-3 sm:p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                  <div
+                    key={task.id}
+                    className="flex items-start sm:items-center space-x-3 sm:space-x-4 p-3 sm:p-4 border rounded-lg hover:bg-muted/50 transition-colors"
+                  >
                     <Button
                       variant="ghost"
                       size="sm"
                       className="h-8 w-8 p-0 flex-shrink-0 mt-1 sm:mt-0"
                       onClick={() => toggleTaskStatus(task.id)}
                     >
-                      <StatusIcon className={`w-4 h-4 ${
-                        task.status === 'completed' ? 'text-green-600' :
-                        task.status === 'in-progress' ? 'text-blue-600' :
-                        'text-muted-foreground'
-                      }`} />
+                      <StatusIcon
+                        className={`w-4 h-4 ${
+                          task.status === "completed"
+                            ? "text-green-600"
+                            : task.status === "in-progress"
+                              ? "text-blue-600"
+                              : "text-muted-foreground"
+                        }`}
+                      />
                     </Button>
 
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                        <h3 className={`font-medium text-sm sm:text-base ${task.status === 'completed' ? 'line-through text-muted-foreground' : ''}`}>
+                        <h3
+                          className={`font-medium text-sm sm:text-base ${task.status === "completed" ? "line-through text-muted-foreground" : ""}`}
+                        >
                           {task.title}
                         </h3>
                         <div className="flex gap-2 flex-wrap">
-                          <Badge variant="outline" className={`${priorityColors[task.priority]} text-xs`}>
+                          <Badge
+                            variant="outline"
+                            className={`${priorityColors[task.priority]} text-xs`}
+                          >
                             {task.priority}
                           </Badge>
                           <Badge variant="secondary" className="text-xs">
@@ -166,7 +209,9 @@ export default function Tasks() {
                         </div>
                       </div>
                       {task.description && (
-                        <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">{task.description}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">
+                          {task.description}
+                        </p>
                       )}
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs text-muted-foreground">
                         <div className="flex items-center gap-3">
@@ -179,13 +224,19 @@ export default function Tasks() {
                           {task.assignee && (
                             <span className="flex items-center">
                               <User className="w-3 h-3 mr-1" />
-                              <span className="truncate max-w-24">{task.assignee}</span>
+                              <span className="truncate max-w-24">
+                                {task.assignee}
+                              </span>
                             </span>
                           )}
                         </div>
                         <div className="flex gap-1 flex-wrap">
                           {task.tags.slice(0, 3).map((tag) => (
-                            <Badge key={tag} variant="outline" className="text-xs">
+                            <Badge
+                              key={tag}
+                              variant="outline"
+                              className="text-xs"
+                            >
                               {tag}
                             </Badge>
                           ))}

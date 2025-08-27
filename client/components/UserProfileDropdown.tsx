@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,9 +8,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
-import { Button } from './ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+} from "./ui/dropdown-menu";
+import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   User,
   Settings,
@@ -18,31 +18,31 @@ import {
   LogOut,
   CreditCard,
   Shield,
-  Bell
-} from 'lucide-react';
+  Bell,
+} from "lucide-react";
 
 export function UserProfileDropdown() {
   const { user, logout } = useAuth();
   const [avatarImage, setAvatarImage] = useState<string | null>(
-    localStorage.getItem('taskflow_avatar')
+    localStorage.getItem("taskflow_avatar"),
   );
 
   // Listen for avatar changes
   useEffect(() => {
     const handleStorageChange = () => {
-      setAvatarImage(localStorage.getItem('taskflow_avatar'));
+      setAvatarImage(localStorage.getItem("taskflow_avatar"));
     };
 
     const handleAvatarChange = () => {
-      setAvatarImage(localStorage.getItem('taskflow_avatar'));
+      setAvatarImage(localStorage.getItem("taskflow_avatar"));
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('avatarChanged', handleAvatarChange);
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("avatarChanged", handleAvatarChange);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('avatarChanged', handleAvatarChange);
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("avatarChanged", handleAvatarChange);
     };
   }, []);
 
@@ -55,7 +55,10 @@ export function UserProfileDropdown() {
           <Avatar className="h-8 w-8">
             <AvatarImage src={avatarImage || user.avatar} alt={user.name} />
             <AvatarFallback className="bg-primary text-primary-foreground">
-              {user.name.split(' ').map(n => n[0]).join('')}
+              {user.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -75,7 +78,7 @@ export function UserProfileDropdown() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        
+
         <DropdownMenuItem asChild>
           <Link to="/settings#profile" className="flex items-center">
             <User className="mr-2 h-4 w-4" />
@@ -99,7 +102,13 @@ export function UserProfileDropdown() {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => alert('Billing features coming soon! This would integrate with Stripe or similar payment system.')}>
+        <DropdownMenuItem
+          onClick={() =>
+            alert(
+              "Billing features coming soon! This would integrate with Stripe or similar payment system.",
+            )
+          }
+        >
           <CreditCard className="mr-2 h-4 w-4" />
           Billing & Subscription
         </DropdownMenuItem>
@@ -110,16 +119,22 @@ export function UserProfileDropdown() {
             Privacy & Security
           </Link>
         </DropdownMenuItem>
-        
+
         <DropdownMenuSeparator />
-        
-        <DropdownMenuItem onClick={() => alert('Help & Support: For assistance, contact support@taskflow.ai or visit our documentation at docs.taskflow.ai')}>
+
+        <DropdownMenuItem
+          onClick={() =>
+            alert(
+              "Help & Support: For assistance, contact support@taskflow.ai or visit our documentation at docs.taskflow.ai",
+            )
+          }
+        >
           <HelpCircle className="mr-2 h-4 w-4" />
           Help & Support
         </DropdownMenuItem>
-        
+
         <DropdownMenuSeparator />
-        
+
         <DropdownMenuItem
           className="text-red-600 focus:text-red-600"
           onClick={logout}

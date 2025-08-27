@@ -1,58 +1,65 @@
-import { useState } from 'react';
-import { Layout } from '../components/Layout';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Calendar as CalendarComponent } from '../components/ui/calendar';
-import { TaskCreationModal } from '../components/TaskCreationModal';
-import { useTaskStore, Task } from '../hooks/useTaskStore';
+import { useState } from "react";
+import { Layout } from "../components/Layout";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { Calendar as CalendarComponent } from "../components/ui/calendar";
+import { TaskCreationModal } from "../components/TaskCreationModal";
+import { useTaskStore, Task } from "../hooks/useTaskStore";
 import {
   Plus,
   Calendar as CalendarIcon,
   Clock,
   MapPin,
-  Users
-} from 'lucide-react';
-import { format, isSameDay, parseISO } from 'date-fns';
+  Users,
+} from "lucide-react";
+import { format, isSameDay, parseISO } from "date-fns";
 
 interface CalendarEvent {
   id: string;
   title: string;
   date: string;
   time: string;
-  type: 'task' | 'meeting' | 'deadline';
-  priority?: 'low' | 'medium' | 'high';
+  type: "task" | "meeting" | "deadline";
+  priority?: "low" | "medium" | "high";
 }
 
 const mockEvents: CalendarEvent[] = [
   {
-    id: 'e1',
-    title: 'Team Standup',
-    date: '2024-01-15',
-    time: '09:00',
-    type: 'meeting'
+    id: "e1",
+    title: "Team Standup",
+    date: "2024-01-15",
+    time: "09:00",
+    type: "meeting",
   },
   {
-    id: 'e2',
-    title: 'Project Review',
-    date: '2024-01-16',
-    time: '14:00',
-    type: 'meeting'
+    id: "e2",
+    title: "Project Review",
+    date: "2024-01-16",
+    time: "14:00",
+    type: "meeting",
   },
   {
-    id: 'e3',
-    title: 'Client Presentation',
-    date: '2024-01-20',
-    time: '10:00',
-    type: 'deadline',
-    priority: 'high'
-  }
+    id: "e3",
+    title: "Client Presentation",
+    date: "2024-01-20",
+    time: "10:00",
+    type: "deadline",
+    priority: "high",
+  },
 ];
 
 const priorityColors = {
-  low: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-  high: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+  low: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+  medium:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+  high: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
 };
 
 export default function Calendar() {
@@ -60,20 +67,26 @@ export default function Calendar() {
   const [events] = useState<CalendarEvent[]>(mockEvents);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  const handleTaskCreate = (taskData: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const handleTaskCreate = (
+    taskData: Omit<Task, "id" | "createdAt" | "updatedAt">,
+  ) => {
     addTask(taskData);
   };
 
   // Get tasks and events for selected date
   const selectedDateItems = [
-    ...tasks.filter(task => task.dueDate && isSameDay(parseISO(task.dueDate), selectedDate)),
-    ...events.filter(event => isSameDay(parseISO(event.date), selectedDate))
+    ...tasks.filter(
+      (task) => task.dueDate && isSameDay(parseISO(task.dueDate), selectedDate),
+    ),
+    ...events.filter((event) => isSameDay(parseISO(event.date), selectedDate)),
   ];
 
   // Get dates that have tasks or events
   const datesWithItems = [
-    ...tasks.filter(task => task.dueDate).map(task => parseISO(task.dueDate!)),
-    ...events.map(event => parseISO(event.date))
+    ...tasks
+      .filter((task) => task.dueDate)
+      .map((task) => parseISO(task.dueDate!)),
+    ...events.map((event) => parseISO(event.date)),
   ];
 
   return (
@@ -82,10 +95,14 @@ export default function Calendar() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Calendar</h1>
-            <p className="text-muted-foreground mt-1 text-sm sm:text-base">View and manage your tasks and events in calendar format.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+              Calendar
+            </h1>
+            <p className="text-muted-foreground mt-1 text-sm sm:text-base">
+              View and manage your tasks and events in calendar format.
+            </p>
           </div>
-          <TaskCreationModal 
+          <TaskCreationModal
             onTaskCreate={handleTaskCreate}
             trigger={
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground sm:w-auto w-full">
@@ -112,14 +129,14 @@ export default function Calendar() {
                 onSelect={(date) => date && setSelectedDate(date)}
                 className="rounded-md border w-full mx-auto max-w-sm sm:max-w-none"
                 modifiers={{
-                  hasItems: datesWithItems
+                  hasItems: datesWithItems,
                 }}
                 modifiersStyles={{
-                  hasItems: { 
-                    backgroundColor: 'hsl(var(--primary))',
-                    color: 'hsl(var(--primary-foreground))',
-                    borderRadius: '6px'
-                  }
+                  hasItems: {
+                    backgroundColor: "hsl(var(--primary))",
+                    color: "hsl(var(--primary-foreground))",
+                    borderRadius: "6px",
+                  },
                 }}
               />
             </CardContent>
@@ -130,10 +147,12 @@ export default function Calendar() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <CalendarIcon className="w-5 h-5 mr-2" />
-                {format(selectedDate, 'MMMM d, yyyy')}
+                {format(selectedDate, "MMMM d, yyyy")}
               </CardTitle>
               <CardDescription>
-                {selectedDateItems.length === 0 ? 'No items scheduled' : `${selectedDateItems.length} item(s) scheduled`}
+                {selectedDateItems.length === 0
+                  ? "No items scheduled"
+                  : `${selectedDateItems.length} item(s) scheduled`}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -145,13 +164,19 @@ export default function Calendar() {
                   </div>
                 ) : (
                   selectedDateItems.map((item) => (
-                    <div key={item.id} className="p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                      {'dueDate' in item ? (
+                    <div
+                      key={item.id}
+                      className="p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      {"dueDate" in item ? (
                         // Task
                         <div>
                           <div className="flex items-center justify-between mb-1">
                             <h4 className="font-medium">{item.title}</h4>
-                            <Badge variant="outline" className={priorityColors[item.priority]}>
+                            <Badge
+                              variant="outline"
+                              className={priorityColors[item.priority]}
+                            >
                               {item.priority}
                             </Badge>
                           </div>
@@ -169,7 +194,10 @@ export default function Calendar() {
                           <div className="flex items-center justify-between mb-1">
                             <h4 className="font-medium">{item.title}</h4>
                             {item.priority && (
-                              <Badge variant="outline" className={priorityColors[item.priority]}>
+                              <Badge
+                                variant="outline"
+                                className={priorityColors[item.priority]}
+                              >
                                 {item.priority}
                               </Badge>
                             )}
@@ -201,32 +229,36 @@ export default function Calendar() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {tasks.filter(task => task.dueDate).slice(0, 3).map((task) => (
-                <div key={task.id} className="p-4 border rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium">{task.title}</h4>
-                    <Badge variant="outline" className={priorityColors[task.priority]}>
-                      {task.priority}
-                    </Badge>
+              {tasks
+                .filter((task) => task.dueDate)
+                .slice(0, 3)
+                .map((task) => (
+                  <div key={task.id} className="p-4 border rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium">{task.title}</h4>
+                      <Badge
+                        variant="outline"
+                        className={priorityColors[task.priority]}
+                      >
+                        {task.priority}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <CalendarIcon className="w-4 h-4 mr-1" />
+                      {task.dueDate}
+                    </div>
                   </div>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <CalendarIcon className="w-4 h-4 mr-1" />
-                    {task.dueDate}
-                  </div>
-                </div>
-              ))}
-              
+                ))}
+
               {events.slice(0, 3).map((event) => (
                 <div key={event.id} className="p-4 border rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="font-medium">{event.title}</h4>
-                    <Badge variant="secondary">
-                      {event.type}
-                    </Badge>
+                    <Badge variant="secondary">{event.type}</Badge>
                   </div>
                   <div className="flex items-center text-sm text-muted-foreground">
                     <Clock className="w-4 h-4 mr-1" />
-                    {format(parseISO(event.date), 'MMM d')} at {event.time}
+                    {format(parseISO(event.date), "MMM d")} at {event.time}
                   </div>
                 </div>
               ))}
