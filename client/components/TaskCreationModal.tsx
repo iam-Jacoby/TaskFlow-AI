@@ -71,7 +71,7 @@ export function TaskCreationModal({ trigger, onTaskCreate }: TaskCreationModalPr
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[525px]">
+      <DialogContent className="mx-4 sm:mx-0 sm:max-w-[525px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Create New Task</DialogTitle>
           <DialogDescription>
